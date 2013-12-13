@@ -1,0 +1,28 @@
+{
+  "name": "json-dir",
+  "main": "./src/json-dir",
+  "version": "0.0.0",
+  "description": "Simple database based on json files and dir structure. Good for testing and small prototypes.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonfan/json-dir.git"
+  },
+  "dependencies": {
+    "lodash": "~2.4.0",
+    "q-ify": "0.0.0",
+    "json-file": "git://github.com/simonfan/json-file"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-yuidoc": "~0.5.0",
+    "grunt-contrib-jshint": "~0.7.2",
+    "should": "~2.1.0",
+    "mocha": "~1.15.0",
+    "grunt-simple-mocha": "~0.4.0",
+    "q": "~0.9.7"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
