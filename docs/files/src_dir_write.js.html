@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JsonDir - json-dir</title>
+    <title>src/dir/write.js - json-dir</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -92,38 +92,83 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>JsonDir Module</h1>
-<div class="box clearfix meta">
-    
+                        <h1 class="file-heading">File: src/dir/write.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x27;use strict&#x27;;
 
-    
-        <div class="foundat">
-            Defined in: <a href="../files/src_index.js.html#l5"><code>src&#x2F;index.js:5</code></a>
-        </div>
-    
+/**
+ * WRITERS
+ */
 
-    
-</div>
+var path = require(&#x27;path&#x27;);
 
+var _ = require(&#x27;lodash&#x27;),
+	Q = require(&#x27;q&#x27;);
 
+var helpers = require(&#x27;./helpers&#x27;);
 
-<div class="box intro">
-    <p>CJS module.</p>
+/**
+ * 
+ * @method writeFiles
+ */
+exports.writeFiles = function writeFiles(first, second) {
+	if (_.isObject(first)) {
 
-</div>
+		return this._writeFiles.apply(this, arguments);
 
+	} else if (_.isString(first) &amp;&amp; _.isObject(second)) {
+		// single file
+		return this._writeFile.apply(this, arguments);
+	}
+};
 
+/**
+ * Writes a single file.
+ */
+exports._writeFile = function _writeFile(fname, data) {
+	var qJson = this.file(fname);
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-    </div>
+	// set data
+	qJson.data = data;
 
-    <div class="yui3-u-1-2">
-        
-    </div>
+	return qJson.write({ space: &#x27;\t&#x27;, replacer: null })
+		.then(function () {
+			return qJson;
+		}, function (err) {
+			console.log(arguments);
+		});
+};
+
+exports._writeFiles = function _writeFiles(files) {
+	// multiple files
+	var keys = _(files).keys(),
+		// get file ids
+		fids = keys.map(function (fname) {
+			return helpers.normalizeFileId(fname);
+		}).value();
+
+	var writes = [];
+
+	_.each(files, function (data, name) {
+		// create a write
+		writes.push(this._writeFile.bind(this)(name, data));
+
+	}.bind(this));
+
+	return Q.all(writes).then(function (files) {
+		var res = {};
+
+		_.each(fids, function (fid, index) {
+			res[fid] = files[index];
+		});
+
+		return res;
+	});
+};
+
+    </pre>
 </div>
 
                     </div>

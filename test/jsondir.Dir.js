@@ -7,7 +7,7 @@ var should = require('should');
 var Q = require('q');
 var _ = require('lodash');
 
-var jsondir = require('../src/json-dir');
+var jsondir = require('../src/index');
 
 var Dir = jsondir.Dir;
 
@@ -180,5 +180,27 @@ describe('jsondir.Dir', function () {
 		afterEach(function () {
 			fs.unlinkSync(path.join(this.tempDir, 'writing-test.json'));
 		})
+	});
+
+
+	describe('dir.unlinkFiles(fnames)', function () {
+		beforeEach(function () {
+			fs.writeFileSync(this.tempDir + '/unlink1.json');
+			fs.writeFileSync(this.tempDir + '/unlink2.json');
+		});
+
+		it('effectivelly unlinks', function (done) {
+			var dir = new Dir(this.tempDir);
+
+			dir.unlinkFiles(['unlink1', 'unlink2.json'])
+				.done(function () {
+					var files = fs.readdirSync(dir.path);
+
+					files.length.should.eql(3);
+
+					done();
+
+				})
+		});
 	})
 });

@@ -1,12 +1,25 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "Dir"
+        "Dir",
+        "dir-read",
+        "helpers"
     ],
     "modules": [
-        "JsonDir"
+        "Dir",
+        "JsonDir",
+        "json-dir"
     ],
     "allModules": [
+        {
+            "displayName": "Dir",
+            "name": "Dir",
+            "description": "Dir is the directory object representation.\nThe constructor basically stores the path to the dir\nand creates a files hash, on which file objects will be stored."
+        },
+        {
+            "displayName": "json-dir",
+            "name": "json-dir"
+        },
         {
             "displayName": "JsonDir",
             "name": "JsonDir",

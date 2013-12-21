@@ -52,13 +52,13 @@ module.exports = function (grunt) {
 
 			// src
 			src: {
-				src: ['src/json-dir.js']
+				src: ['src/**/*.js']
 			}
 		},
 
 		watch: {
 			live: {
-				files: ['src/*.js', 'test/**.js', 'demo/**', 'docs/**', 'Gruntfile.js'],
+				files: ['src/**/*.js', 'test/**.js', 'demo/**', 'docs/**', 'Gruntfile.js'],
 				tasks: ['jshint:gruntfile', 'jshint:src', 'simplemocha']
 			}
 		},

@@ -4,7 +4,7 @@ var path = require('path');
 
 var should = require('should');
 
-var jsonDir = require('../src/json-dir');
+var jsonDir = require('../src/index');
 
 var lodash = require('lodash');
 
@@ -16,9 +16,7 @@ describe('jsonDir promise based interface', function () {
 	});
 
 	it('has promise-based methods', function () {
-		var methods = ['read'];
-
-		var promiseToRead = jsonDir.read(path.join(__dirname, 'temp'));
+		var promiseToRead = jsonDir.load(path.join(__dirname, 'temp'));
 
 		should(Q.isPromise(promiseToRead)).ok;
 	});

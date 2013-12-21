@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JsonDir - json-dir</title>
+    <title>src/dir/read.js - json-dir</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -92,38 +92,155 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>JsonDir Module</h1>
-<div class="box clearfix meta">
-    
+                        <h1 class="file-heading">File: src/dir/read.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x27;use strict&#x27;;
 
-    
-        <div class="foundat">
-            Defined in: <a href="../files/src_index.js.html#l5"><code>src&#x2F;index.js:5</code></a>
-        </div>
-    
+/**
+ * @module json-dir
+ */
 
-    
-</div>
+var path = require(&#x27;path&#x27;);
 
+var qify = require(&#x27;q-ify&#x27;),
+	_ = require(&#x27;lodash&#x27;),
+	Q = require(&#x27;q&#x27;);
 
+var	qfs = qify(&#x27;fs&#x27;, [&#x27;readdir&#x27;, &#x27;readFile&#x27;]);
 
-<div class="box intro">
-    <p>CJS module.</p>
-
-</div>
+var helpers = require(&#x27;./helpers&#x27;);
 
 
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-    </div>
 
-    <div class="yui3-u-1-2">
-        
-    </div>
+/**
+ * @class dir-read
+ */
+
+/**
+ * File name reader
+ * fs.readdir(), but with promise interface.
+ *
+ * @method read
+ * @param [fnames] {Array}
+ *
+ * @return promise
+ */
+exports.read = function read() {
+	// use qfs.readdir, as it is promisified.
+	return qfs.readdir(this.path);
+};
+
+/**
+ * File name reader.
+ * fs.readdirSync
+ *
+ * @method readSync
+ */
+exports.readSync = function readSync() {
+	return qfs.readdirSync(this.path);
+};
+
+/**
+ * Reads a file and returns a
+ * promise for a qified json-file object.
+ *
+ * @method readFiles
+ * @param fnames {String|Array}
+ */
+exports.readFiles = function readFiles(fnames) {
+
+	if (_.isString(fnames)) {
+		// single file
+		return this._readFile(fnames);
+
+	} else if (_.isArray(fnames)) {
+		// array of files
+		return this._readFiles(fnames);
+
+	} else if (!fnames) {
+		// all files
+		var readFnames = this.read();
+
+		return readFnames.then(function (fnames) {
+
+			// return a promise.
+			return this._readFiles(fnames);
+
+		}.bind(this));
+	}
+};
+
+/**
+ * Returns a promise for a fully read file object.
+ *
+ * @method _readFile
+ * @private
+ * @param fname {String}
+ */
+exports._readFile = function _readFile(fname) {
+	// build qJson file object.
+	var qJson = this.file(fname);
+
+	return qJson.read()
+		.then(function () {
+			return qJson;
+		});
+		// intentionally leave error unhandled.
+};
+
+/**
+ * Returns an object keyed by fid (fname without .json)
+ * and valued by file objects.
+ *
+ * @method _readFiles
+ * @private
+ * @param fnames {Array}
+ */
+exports._readFiles = function _readFiles(fnames) {
+	// fnames is required here
+	var readFiles = Q.all(_.map(fnames, this._readFile.bind(this)));
+
+	return readFiles.then(function (files) {
+		var res = {},
+			fids = _.map(fnames, helpers.normalizeFileId);
+
+		// map files to their names.
+		_.each(fids, function (fid, index) {
+			res[fid] = files[index];
+		});
+
+		return res;
+	});
+};
+
+exports._readFileSync = function _readFileSync(fname) {
+	var fpath = path.join(this.path, helpers.normalizeFileName(fname)),
+		qJson = this.file(fpath);
+
+	qJson.readSync();
+
+	return qJson;
+};
+
+/**
+ * Sync implementation of readFiles
+ *
+ * @method readFilesSync
+ * @param fnames {String|Array}
+ */
+exports.readFilesSync = function readFilesSync(fnames) {
+
+	fnames = fnames || this.readSync();
+
+	return _.isString(fnames) ?
+				this._readFileSync(fnames) :
+				_.map(fnames, this._readFileSync.bind(this));
+};
+
+    </pre>
 </div>
 
                     </div>

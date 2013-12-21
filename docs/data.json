@@ -4,41 +4,127 @@
         "version": "0.0.0"
     },
     "files": {
-        "src/dir.js": {
-            "name": "src/dir.js",
+        "src/dir/helpers.js": {
+            "name": "src/dir/helpers.js",
+            "modules": {
+                "json-dir": 1
+            },
+            "classes": {
+                "helpers": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/dir/index.js": {
+            "name": "src/dir/index.js",
+            "modules": {
+                "Dir": 1
+            },
+            "classes": {
+                "Dir": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/dir/iterate.js": {
+            "name": "src/dir/iterate.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "src/json-dir.js": {
-            "name": "src/json-dir.js",
+        "src/dir/read.js": {
+            "name": "src/dir/read.js",
+            "modules": {},
+            "classes": {
+                "dir-read": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/dir/unlink.js": {
+            "name": "src/dir/unlink.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/dir/write.js": {
+            "name": "src/dir/write.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/index.js": {
+            "name": "src/index.js",
             "modules": {
                 "JsonDir": 1
             },
-            "classes": {
-                "Dir": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {}
         }
     },
     "modules": {
-        "JsonDir": {
-            "name": "JsonDir",
+        "json-dir": {
+            "name": "json-dir",
+            "submodules": {
+                "Dir": 1
+            },
+            "classes": {
+                "helpers": 1,
+                "Dir": 1,
+                "dir-read": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/dir/read.js",
+            "line": 20
+        },
+        "Dir": {
+            "name": "Dir",
             "submodules": {},
             "classes": {
                 "Dir": 1
             },
             "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "json-dir",
+            "namespace": "",
+            "file": "src/dir/index.js",
+            "line": 20,
+            "description": "Dir is the directory object representation.\nThe constructor basically stores the path to the dir\nand creates a files hash, on which file objects will be stored."
+        },
+        "JsonDir": {
+            "name": "JsonDir",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "src/json-dir.js",
-            "line": 61,
+            "file": "src/index.js",
+            "line": 5,
             "description": "CJS module."
         }
     },
     "classes": {
+        "helpers": {
+            "name": "helpers",
+            "shortname": "helpers",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "json-dir",
+            "namespace": "",
+            "file": "src/dir/helpers.js",
+            "line": 7,
+            "static": 1
+        },
         "Dir": {
             "name": "Dir",
             "shortname": "Dir",
@@ -47,28 +133,78 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "JsonDir",
+            "module": "json-dir",
+            "submodule": "Dir",
             "namespace": "",
-            "file": "src/json-dir.js",
-            "line": 61
+            "file": "src/dir/index.js",
+            "line": 20,
+            "description": "Dir is the directory object representation.\nThe constructor basically stores the path to the dir\nand creates a files hash, on which file objects will be stored.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "dirpath",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "\n    - replacer -> null\n    - space    -> '\\t'",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
+        },
+        "dir-read": {
+            "name": "dir-read",
+            "shortname": "dir-read",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "json-dir",
+            "namespace": "",
+            "file": "src/dir/read.js",
+            "line": 20
         }
     },
     "classitems": [
         {
-            "file": "src/dir.js",
-            "line": 2,
-            "class": "Dir"
+            "file": "src/dir/helpers.js",
+            "line": 12,
+            "description": "Takes a string and returns a '*.json' file name.\nIf the string already has a '.json' extension,\ndo nothing.",
+            "itemtype": "method",
+            "name": "normalizeFileName",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "helpers",
+            "module": "json-dir"
         },
         {
-            "file": "src/dir.js",
-            "line": 14,
-            "description": "Export the Dir constructor.",
-            "class": "Dir"
+            "file": "src/dir/helpers.js",
+            "line": 28,
+            "description": "Takes a string and trims out the trailing\n'.json' (if present).",
+            "itemtype": "method",
+            "name": "normalizeFileId",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "helpers",
+            "module": "json-dir"
         },
         {
-            "file": "src/dir.js",
-            "line": 25,
-            "description": "Returns a json-file object.",
+            "file": "src/dir/index.js",
+            "line": 50,
+            "description": "Instantiates a file object given a file name.",
             "itemtype": "method",
             "name": "file",
             "params": [
@@ -76,65 +212,24 @@
                     "name": "fname",
                     "description": "",
                     "type": "String"
-                },
-                {
-                    "name": "callback",
-                    "description": "",
-                    "type": "Function"
                 }
             ],
-            "class": "Dir"
+            "class": "Dir",
+            "module": "json-dir",
+            "submodule": "Dir"
         },
         {
-            "file": "src/dir.js",
-            "line": 59,
+            "file": "src/dir/iterate.js",
+            "line": 48,
+            "description": "Loop through files",
             "itemtype": "method",
-            "name": "read",
-            "params": [
-                {
-                    "name": "fnames",
-                    "description": "",
-                    "type": "Array",
-                    "optional": true
-                }
-            ],
-            "class": "Dir"
+            "name": "",
+            "class": "dir-read",
+            "module": "json-dir"
         },
         {
-            "file": "src/dir.js",
-            "line": 77,
-            "itemtype": "method",
-            "name": "readSync",
-            "class": "Dir"
-        },
-        {
-            "file": "src/dir.js",
-            "line": 88,
-            "description": "Creation",
-            "class": "Dir"
-        },
-        {
-            "file": "src/json-dir.js",
-            "line": 46,
-            "class": "Dir",
-            "module": "JsonDir"
-        },
-        {
-            "file": "src/json-dir.js",
-            "line": 82,
-            "class": "Dir",
-            "module": "JsonDir"
-        },
-        {
-            "file": "src/json-dir.js",
-            "line": 96,
-            "description": "READERS",
-            "class": "Dir",
-            "module": "JsonDir"
-        },
-        {
-            "file": "src/json-dir.js",
-            "line": 100,
+            "file": "src/dir/read.js",
+            "line": 24,
             "description": "File name reader\nfs.readdir(), but with promise interface.",
             "itemtype": "method",
             "name": "read",
@@ -149,98 +244,197 @@
             "return": {
                 "description": "promise"
             },
-            "class": "Dir",
-            "module": "JsonDir"
+            "class": "dir-read",
+            "module": "json-dir"
         },
         {
-            "file": "src/json-dir.js",
-            "line": 114,
+            "file": "src/dir/read.js",
+            "line": 38,
             "description": "File name reader.\nfs.readdirSync",
             "itemtype": "method",
             "name": "readSync",
-            "class": "Dir",
-            "module": "JsonDir"
+            "class": "dir-read",
+            "module": "json-dir"
         },
         {
-            "file": "src/json-dir.js",
-            "line": 124,
+            "file": "src/dir/read.js",
+            "line": 48,
             "description": "Reads a file and returns a\npromise for a qified json-file object.",
-            "class": "Dir",
-            "module": "JsonDir"
+            "itemtype": "method",
+            "name": "readFiles",
+            "params": [
+                {
+                    "name": "fnames",
+                    "description": "",
+                    "type": "String|Array"
+                }
+            ],
+            "class": "dir-read",
+            "module": "json-dir"
         },
         {
-            "file": "src/json-dir.js",
-            "line": 199,
-            "description": "WRITERS",
-            "class": "Dir",
-            "module": "JsonDir"
+            "file": "src/dir/read.js",
+            "line": 78,
+            "description": "Returns a promise for a fully read file object.",
+            "itemtype": "method",
+            "name": "_readFile",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "fname",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "dir-read",
+            "module": "json-dir"
         },
         {
-            "file": "src/json-dir.js",
-            "line": 203,
-            "description": "Creates the dir and writes all loaded files to disk.",
-            "class": "Dir",
-            "module": "JsonDir"
+            "file": "src/dir/read.js",
+            "line": 96,
+            "description": "Returns an object keyed by fid (fname without .json)\nand valued by file objects.",
+            "itemtype": "method",
+            "name": "_readFiles",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "fnames",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "class": "dir-read",
+            "module": "json-dir"
         },
         {
-            "file": "src/json-dir.js",
-            "line": 220,
-            "description": "Writes a single file.",
-            "class": "Dir",
-            "module": "JsonDir"
+            "file": "src/dir/read.js",
+            "line": 130,
+            "description": "Sync implementation of readFiles",
+            "itemtype": "method",
+            "name": "readFilesSync",
+            "params": [
+                {
+                    "name": "fnames",
+                    "description": "",
+                    "type": "String|Array"
+                }
+            ],
+            "class": "dir-read",
+            "module": "json-dir"
         },
         {
-            "file": "src/json-dir.js",
-            "line": 266,
+            "file": "src/dir/unlink.js",
+            "line": 3,
             "description": "UNLINKERS",
-            "class": "Dir",
+            "class": "",
+            "module": "json-dir"
+        },
+        {
+            "file": "src/dir/unlink.js",
+            "line": 15,
+            "description": "Returns a promise.",
+            "itemtype": "method",
+            "name": "unlinkFiles",
+            "params": [
+                {
+                    "name": "fnames",
+                    "description": "",
+                    "type": "String|Array"
+                }
+            ],
+            "class": "",
+            "module": "json-dir"
+        },
+        {
+            "file": "src/dir/write.js",
+            "line": 3,
+            "description": "WRITERS",
+            "class": "",
+            "module": "json-dir"
+        },
+        {
+            "file": "src/dir/write.js",
+            "line": 14,
+            "itemtype": "method",
+            "name": "writeFiles",
+            "class": "",
+            "module": "json-dir"
+        },
+        {
+            "file": "src/dir/write.js",
+            "line": 29,
+            "description": "Writes a single file.",
+            "class": "",
+            "module": "json-dir"
+        },
+        {
+            "file": "src/index.js",
+            "line": 16,
+            "description": "Instantiates a jsondir.Dir object,\ninvokes readFiles(fnames) and returns the promise.",
+            "itemtype": "method",
+            "name": "load",
+            "params": [
+                {
+                    "name": "dirpath",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "fnames",
+                    "description": "",
+                    "type": "String|Array"
+                }
+            ],
+            "class": "",
+            "module": "JsonDir"
+        },
+        {
+            "file": "src/index.js",
+            "line": 31,
+            "description": "Instantiates a jsondir.Dir object,\ninvokes readFilesSync(fnames) and returns the\nobject itself.",
+            "itemtype": "method",
+            "name": "loadSync",
+            "params": [
+                {
+                    "name": "dirpath",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "fnames",
+                    "description": "",
+                    "type": "String|Array"
+                }
+            ],
+            "class": "",
+            "module": "JsonDir"
+        },
+        {
+            "file": "src/index.js",
+            "line": 50,
+            "description": "The Dir class.",
+            "class": "",
             "module": "JsonDir"
         }
     ],
     "warnings": [
         {
-            "message": "Missing item type",
-            "line": " src/dir.js:2"
-        },
-        {
-            "message": "Missing item type\nExport the Dir constructor.",
-            "line": " src/dir.js:14"
-        },
-        {
-            "message": "Missing item type\nCreation",
-            "line": " src/dir.js:88"
-        },
-        {
-            "message": "Missing item type",
-            "line": " src/json-dir.js:46"
-        },
-        {
-            "message": "Missing item type",
-            "line": " src/json-dir.js:82"
-        },
-        {
-            "message": "Missing item type\nREADERS",
-            "line": " src/json-dir.js:96"
-        },
-        {
-            "message": "Missing item type\nReads a file and returns a\npromise for a qified json-file object.",
-            "line": " src/json-dir.js:124"
+            "message": "Missing item type\nUNLINKERS",
+            "line": " src/dir/unlink.js:3"
         },
         {
             "message": "Missing item type\nWRITERS",
-            "line": " src/json-dir.js:199"
-        },
-        {
-            "message": "Missing item type\nCreates the dir and writes all loaded files to disk.",
-            "line": " src/json-dir.js:203"
+            "line": " src/dir/write.js:3"
         },
         {
             "message": "Missing item type\nWrites a single file.",
-            "line": " src/json-dir.js:220"
+            "line": " src/dir/write.js:29"
         },
         {
-            "message": "Missing item type\nUNLINKERS",
-            "line": " src/json-dir.js:266"
+            "message": "Missing item type\nThe Dir class.",
+            "line": " src/index.js:50"
         }
     ]
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JsonDir - json-dir</title>
+    <title>src/dir/index.js - json-dir</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -92,38 +92,87 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>JsonDir Module</h1>
-<div class="box clearfix meta">
-    
+                        <h1 class="file-heading">File: src/dir/index.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x27;use strict&#x27;;
 
-    
-        <div class="foundat">
-            Defined in: <a href="../files/src_index.js.html#l5"><code>src&#x2F;index.js:5</code></a>
-        </div>
-    
+/**
+ * @module json-dir
+ * @submodule Dir
+ */
 
-    
-</div>
+var path = require(&#x27;path&#x27;);
+
+var _ = require(&#x27;lodash&#x27;),
+	json = require(&#x27;json-file&#x27;),
+	qify = require(&#x27;q-ify&#x27;);
+
+var qJsonFile = qify(function (fpath) {
+	return new json.File(fpath);
+}, [&#x27;read&#x27;, &#x27;write&#x27;]);
+
+var helpers = require(&#x27;./helpers&#x27;);
+
+/**
+ * Dir is the directory object representation.
+ * The constructor basically stores the path to the dir
+ * and creates a files hash, on which file objects will be stored.
+ *
+ * @class Dir
+ * @constructor
+ * @param dirpath {String}
+ * @param [options] {Object}
+ *     - replacer -&gt; null
+ *     - space    -&gt; &#x27;\t&#x27;
+ */
+var Dir = module.exports = function Dir(dirpath, options) {
+
+	this.path = dirpath;
+
+	this._files = {};
+	this.data = {};
 
 
+	options = options || {};
 
-<div class="box intro">
-    <p>CJS module.</p>
+	_.defaults(options, {
+		replacer: null,
+		space: &#x27;\t&#x27;,
+	});
 
-</div>
+	this.options = options;
+};
+
+/**
+ * Instantiates a file object given a file name.
+ *
+ * @method file
+ * @param fname {String}
+ */
+Dir.prototype.file = function file(fname) {
+	// normalize file name
+	fname = helpers.normalizeFileName(fname);
+
+	// get path
+	var fpath = path.join(this.path, fname);
+
+	// return object
+	return qJsonFile(fpath);
+};
 
 
+// READ
+_.extend(Dir.prototype, require(&#x27;./read&#x27;));
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-    </div>
+// WRITE
+_.extend(Dir.prototype, require(&#x27;./write&#x27;));
 
-    <div class="yui3-u-1-2">
-        
-    </div>
+// UNLINK
+_.extend(Dir.prototype, require(&#x27;./unlink&#x27;));
+
+    </pre>
 </div>
 
                     </div>

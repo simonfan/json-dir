@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Dir - json-dir</title>
+    <title>helpers - json-dir</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -92,7 +92,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Dir Class</h1>
+                        <h1>helpers Class</h1>
 <div class="box meta">
     
 
@@ -100,14 +100,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_dir_index.js.html#l20"><code>src&#x2F;dir&#x2F;index.js:20</code></a>
+            Defined in: <a href="../files/src_dir_helpers.js.html#l7"><code>src&#x2F;dir&#x2F;helpers.js:7</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/Dir.html">Dir</a><br>
-            Parent Module: <a href="../modules/json-dir.html">json-dir</a>
+            Module: <a href="../modules/json-dir.html">json-dir</a>
         
     
 
@@ -117,126 +116,9 @@
 
 
 <div class="box intro">
-    <p>Dir is the directory object representation.
-The constructor basically stores the path to the dir
-and creates a files hash, on which file objects will be stored.</p>
-
-</div>
-
-
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_Dir" class="method item">
-    <h3 class="name"><code>Dir</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>dirpath</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[options]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_dir_index.js.html#l20"><code>src&#x2F;dir&#x2F;index.js:20</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">dirpath</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[options]</code>
-                        <span class="type">Object</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <pre><code>- replacer -&gt; null
-- space    -&gt; &#39;\t&#39;</code></pre>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
     
 </div>
 
-    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -262,7 +144,14 @@ and creates a files hash, on which file objects will be stored.</p>
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_file">file</a>
+                                <a href="#method_normalizeFileId">normalizeFileId</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_normalizeFileName">normalizeFileName</a>
 
                                 
                                 
@@ -284,8 +173,8 @@ and creates a files hash, on which file objects will be stored.</p>
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_file" class="method item">
-    <h3 class="name"><code>file</code></h3>
+                    <div id="method_normalizeFileId" class="method item">
+    <h3 class="name"><code>normalizeFileId</code></h3>
 
     
         <div class="args">
@@ -293,7 +182,7 @@ and creates a files hash, on which file objects will be stored.</p>
             
                 <li class="arg">
                     
-                        <code>fname</code>
+                        <code>str</code>
                     
                 </li>
             
@@ -326,7 +215,7 @@ and creates a files hash, on which file objects will be stored.</p>
             
         
         
-        <a href="../files/src_dir_index.js.html#l50"><code>src&#x2F;dir&#x2F;index.js:50</code></a>
+        <a href="../files/src_dir_helpers.js.html#l28"><code>src&#x2F;dir&#x2F;helpers.js:28</code></a>
         
         </p>
 
@@ -337,7 +226,8 @@ and creates a files hash, on which file objects will be stored.</p>
     </div>
 
     <div class="description">
-        <p>Instantiates a file object given a file name.</p>
+        <p>Takes a string and trims out the trailing
+&#39;.json&#39; (if present).</p>
 
     </div>
 
@@ -349,7 +239,97 @@ and creates a files hash, on which file objects will be stored.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">fname</code>
+                        <code class="param-name">str</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_normalizeFileName" class="method item">
+    <h3 class="name"><code>normalizeFileName</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>str</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_dir_helpers.js.html#l12"><code>src&#x2F;dir&#x2F;helpers.js:12</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Takes a string and returns a &#39;*.json&#39; file name.
+If the string already has a &#39;.json&#39; extension,
+do nothing.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">str</code>
                         <span class="type">String</span>
                     
 
