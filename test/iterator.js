@@ -7,10 +7,11 @@ var Q = require('q');
 
 var jsonDir = require('../src/index');
 
+beforeEach(function () {
+	this.dir = new jsonDir.Dir(path.join(__dirname, 'temp'));
+});
+
 describe('it = json.Dir.iterator()', function () {
-	beforeEach(function () {
-		this.dir = new jsonDir.Dir(path.join(__dirname, 'temp'));
-	});
 
 	it('should return a promise for an iterator object', function (done) {
 		var getIterator = this.dir.iterator();
@@ -62,20 +63,21 @@ describe('it = json.Dir.iterator()', function () {
 
 		});
 	})
+});
 
 
-	describe('it.iteratorSync(options {Object})', function () {
-		it('is synchronous', function () {
 
-			var iterator = this.dir.iteratorSync();
+describe('it.iteratorSync(options {Object})', function () {
+	it('is synchronous', function () {
+
+		var iterator = this.dir.iteratorSync();
 
 
-			var file = iterator.next();
+		var file = iterator.next();
 
-			file.get('id').should.eql(1);
+		file.get('id').should.eql(1);
 
-			iterator.next().get('id').should.eql(2);
-			iterator.next().get('id').should.eql(3);
-		});
+		iterator.next().get('id').should.eql(2);
+		iterator.next().get('id').should.eql(3);
 	});
 });

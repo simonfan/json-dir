@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/dir/iterate.js - json-dir</title>
+    <title>src/dir/iterator.js - json-dir</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -92,7 +92,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/dir/iterate.js</h1>
+                        <h1 class="file-heading">File: src/dir/iterator.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -100,65 +100,32 @@
 
 var Q = require(&#x27;q&#x27;),
 	_ = require(&#x27;lodash&#x27;),
-	subject = require(&#x27;subject&#x27;);
-
-var iterator = subject.define({
-	initialize: function initialize(data, options) {
-		this.data = data;
-
-		this.options = options;
-
-		this.evaluator = options.evaluator || this.evaluator;
-
-
-		// order
-		this.order = _.isArray(data) ? data : options.order;
-
-		// index
-		this.position = options.startAt || 0;
-	},
-
-	next: function next(evaluator) {
-
-		evaluator = evaluator || this.evaluator;
-
-		return this.data[this[order][this.position]]
-
-	},
-
-	previous: function previous() {
-
-	},
-
-	goTo: function goTo() {
-
-	},
-
-	position: function position(index) {
-
-	},
-
-	evaluator: function evaluator(v) {
-		return v;
-	},
-});
-
+	iterator = require(&#x27;iterator&#x27;);
 /**
- * Loop through files
+ * Return an iterator that will be capable of looping through files.
  *
  * @method
  */
-exports.each = function each(first, second) {
+exports.iterator = function (options) {
 
-	var getFnames = _.isArray(first) ? Q(first) : this.read(),
-		iterator = _.isFunction(first) ? first : second;
+	options = options || {
+		evaluator: this.readFiles.bind(this),
+	};
 
-	getFnames.then(function (fnames) {
+	return this.read()
+		.then(function (fnames) {
+			return iterator(fnames, options);
+		});
+};
 
+exports.iteratorSync = function (options) {
+	options = options || {
+		evaluator: this.readFilesSync.bind(this),
+	};
 
+	var it = iterator(this.readSync(), options);
 
-	}.bind(this));
-
+	return it;
 };
 
     </pre>

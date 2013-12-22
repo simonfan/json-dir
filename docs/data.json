@@ -26,8 +26,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/dir/iterate.js": {
-            "name": "src/dir/iterate.js",
+        "src/dir/iterator.js": {
+            "name": "src/dir/iterator.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -81,7 +81,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/dir/read.js",
-            "line": 20
+            "line": 23
         },
         "Dir": {
             "name": "Dir",
@@ -165,7 +165,7 @@
             "module": "json-dir",
             "namespace": "",
             "file": "src/dir/read.js",
-            "line": 20
+            "line": 23
         }
     },
     "classitems": [
@@ -219,9 +219,9 @@
             "submodule": "Dir"
         },
         {
-            "file": "src/dir/iterate.js",
-            "line": 48,
-            "description": "Loop through files",
+            "file": "src/dir/iterator.js",
+            "line": 6,
+            "description": "Return an iterator that will be capable of looping through files.",
             "itemtype": "method",
             "name": "",
             "class": "dir-read",
@@ -229,7 +229,7 @@
         },
         {
             "file": "src/dir/read.js",
-            "line": 24,
+            "line": 27,
             "description": "File name reader\nfs.readdir(), but with promise interface.",
             "itemtype": "method",
             "name": "read",
@@ -249,7 +249,7 @@
         },
         {
             "file": "src/dir/read.js",
-            "line": 38,
+            "line": 41,
             "description": "File name reader.\nfs.readdirSync",
             "itemtype": "method",
             "name": "readSync",
@@ -258,7 +258,7 @@
         },
         {
             "file": "src/dir/read.js",
-            "line": 48,
+            "line": 59,
             "description": "Reads a file and returns a\npromise for a qified json-file object.",
             "itemtype": "method",
             "name": "readFiles",
@@ -274,7 +274,16 @@
         },
         {
             "file": "src/dir/read.js",
-            "line": 78,
+            "line": 89,
+            "description": "Alias for readFiles.",
+            "itemtype": "method",
+            "name": "readFile",
+            "class": "dir-read",
+            "module": "json-dir"
+        },
+        {
+            "file": "src/dir/read.js",
+            "line": 95,
             "description": "Returns a promise for a fully read file object.",
             "itemtype": "method",
             "name": "_readFile",
@@ -292,7 +301,7 @@
         },
         {
             "file": "src/dir/read.js",
-            "line": 96,
+            "line": 113,
             "description": "Returns an object keyed by fid (fname without .json)\nand valued by file objects.",
             "itemtype": "method",
             "name": "_readFiles",
@@ -310,7 +319,7 @@
         },
         {
             "file": "src/dir/read.js",
-            "line": 130,
+            "line": 145,
             "description": "Sync implementation of readFiles",
             "itemtype": "method",
             "name": "readFilesSync",

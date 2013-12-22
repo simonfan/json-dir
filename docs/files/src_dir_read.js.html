@@ -113,7 +113,10 @@ var	qfs = qify(&#x27;fs&#x27;, [&#x27;readdir&#x27;, &#x27;readFile&#x27;]);
 var helpers = require(&#x27;./helpers&#x27;);
 
 
-
+//////////////
+// readddir //
+//////////////
+//
 
 /**
  * @class dir-read
@@ -142,6 +145,14 @@ exports.read = function read() {
 exports.readSync = function readSync() {
 	return qfs.readdirSync(this.path);
 };
+
+
+
+
+//////////////
+// readFile //
+//////////////
+//
 
 /**
  * Reads a file and returns a
@@ -172,6 +183,12 @@ exports.readFiles = function readFiles(fnames) {
 		}.bind(this));
 	}
 };
+
+/**
+ * Alias for readFiles.
+ * @method readFile
+ */
+exports.readFile = exports.readFiles;
 
 /**
  * Returns a promise for a fully read file object.
@@ -216,14 +233,12 @@ exports._readFiles = function _readFiles(fnames) {
 	});
 };
 
-exports._readFileSync = function _readFileSync(fname) {
-	var fpath = path.join(this.path, helpers.normalizeFileName(fname)),
-		qJson = this.file(fpath);
 
-	qJson.readSync();
 
-	return qJson;
-};
+//////////////////
+// readFileSync //
+//////////////////
+//
 
 /**
  * Sync implementation of readFiles
@@ -238,6 +253,16 @@ exports.readFilesSync = function readFilesSync(fnames) {
 	return _.isString(fnames) ?
 				this._readFileSync(fnames) :
 				_.map(fnames, this._readFileSync.bind(this));
+};
+
+exports.readFileSync = exports.readFilesSync;
+
+exports._readFileSync = function _readFileSync(fname) {
+	var qJson = this.file(fname);
+
+	qJson.readSync();
+
+	return qJson;
 };
 
     </pre>

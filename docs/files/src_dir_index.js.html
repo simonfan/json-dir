@@ -164,13 +164,16 @@ Dir.prototype.file = function file(fname) {
 
 
 // READ
-_.extend(Dir.prototype, require(&#x27;./read&#x27;));
+_.assign(Dir.prototype, require(&#x27;./read&#x27;));
 
 // WRITE
-_.extend(Dir.prototype, require(&#x27;./write&#x27;));
+_.assign(Dir.prototype, require(&#x27;./write&#x27;));
 
 // UNLINK
-_.extend(Dir.prototype, require(&#x27;./unlink&#x27;));
+_.assign(Dir.prototype, require(&#x27;./unlink&#x27;));
+
+// ITERATE
+_.assign(Dir.prototype, require(&#x27;./iterator&#x27;));
 
     </pre>
 </div>

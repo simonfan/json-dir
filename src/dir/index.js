@@ -74,5 +74,5 @@ _.assign(Dir.prototype, require('./write'));
 // UNLINK
 _.assign(Dir.prototype, require('./unlink'));
 
-// ITERATE
-_.assign(Dir.prototype, require('./iterate'));
+// ITERATOR
+_.assign(Dir.prototype, require('./iterator'));
