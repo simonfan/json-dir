@@ -9,12 +9,12 @@ var qify = require('q-ify'),
 	_ = require('lodash'),
 	Q = require('q');
 
-var helpers = require('./helpers'),
+var helpers = require('../helpers'),
 	qfs = qify('fs', ['unlink']);
 
 /**
  * Returns a promise.
- * 
+ *
  * @method unlinkFiles
  * @param fnames {String|Array}
  */

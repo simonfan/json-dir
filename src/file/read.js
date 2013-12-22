@@ -12,7 +12,7 @@ var qify = require('q-ify'),
 
 var	qfs = qify('fs', ['readdir', 'readFile']);
 
-var helpers = require('./helpers');
+var helpers = require('../helpers');
 
 
 //////////////

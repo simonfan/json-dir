@@ -1,53 +1,57 @@
-//     JsonDir
-//     (c) simonfan
-//     JsonDir is licensed under the MIT terms.
-
-/**
- * CJS module.
- *
- * @module JsonDir
- */
-
 'use strict';
 
-	// native
+/**
+ * @module json-dir
+ * @submodule dir
+ */
+
 var path = require('path');
 
+var _ = require('lodash'),
+	subject = require('subject');
+
 /**
- * Instantiates a jsondir.Dir object,
- * invokes readFiles(fnames) and returns the promise.
+ * dir is the directory object representation.
+ * The constructor basically stores the path to the dir
+ * and creates a files hash, on which file objects will be stored.
  *
- * @method load
+ * @class dir
+ * @constructor
  * @param dirpath {String}
- * @param fnames {String|Array}
+ * @param [options] {Object}
+ *     - replacer -> null
+ *     - space    -> '\t'
  */
-exports.load = function (dirpath, fnames) {
+var dir = module.exports = subject({
+	initialize: function initializeDir(dirpath, options) {
+		this.path = dirpath;
 
-	var dir = new exports.Dir(dirpath);
-
-	return dir.readFiles(fnames);
-};
-
-/**
- * Instantiates a jsondir.Dir object,
- * invokes readFilesSync(fnames) and returns the
- * object itself.
- *
- * @method loadSync
- * @param dirpath {String}
- * @param fnames {String|Array}
- */
-exports.loadSync = function (dirpath, fnames) {
-
-	var dir = new exports.Dir(dirpath);
-
-	dir.readFilesSync(fnames);
-
-	return dir;
-};
+		this._files = {};
+		this.data = {};
 
 
-/**
- * The Dir class.
- */
-exports.Dir = require('./dir');
+		options = options || {};
+
+		_.defaults(options, {
+			replacer: null,
+			space: '\t',
+		});
+
+		this.options = options;
+	},
+});
+
+// OBJECT
+dir.proto(require('./file/object'));
+
+// READ
+dir.proto(require('./file/read'));
+
+// WRITE
+dir.proto(require('./file/write'));
+
+// UNLINK
+dir.proto(require('./file/unlink'));
+
+// ITERATOR
+dir.proto(require('./iterator'));

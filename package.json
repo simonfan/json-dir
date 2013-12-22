@@ -1,7 +1,7 @@
 {
   "name": "json-dir",
   "main": "./src/index",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Simple database based on json files and dir structure. Good for testing and small prototypes.",
   "repository": {
     "type": "git",
@@ -11,7 +11,8 @@
     "lodash": "~2.4.0",
     "q-ify": "0.0.0",
     "json-file": "git://github.com/simonfan/json-file",
-    "iterator": "git://github.com/simonfan/iterator.git"
+    "iterator": "git://github.com/simonfan/iterator.git",
+    "subject": "~0.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

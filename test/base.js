@@ -7,18 +7,16 @@ var should = require('should');
 var Q = require('q');
 var _ = require('lodash');
 
-var jsondir = require('../src/index');
+var jsonDir = require('../src/index');
 
-var Dir = jsondir.Dir;
-
-describe('jsondir.Dir', function () {
+describe('jsonDir', function () {
 
 	beforeEach(function() {
 		this.tempDir = path.join(__dirname, 'temp');
 	})
 
 	it('can be instantiated without blowing up.', function () {
-		var dir = new Dir(this.tempDir);
+		var dir = jsonDir(this.tempDir);
 
 		dir.should.be.type('object');
 
@@ -29,7 +27,7 @@ describe('jsondir.Dir', function () {
 
 		it('returns a promise', function () {
 
-			var dir = new Dir(this.tempDir),
+			var dir = jsonDir(this.tempDir),
 				fnames = dir.read();
 
 			should(Q.isPromise(fnames)).be.true;
@@ -37,7 +35,7 @@ describe('jsondir.Dir', function () {
 
 		it('that when resolved, returns the results of fs.readdir', function (done) {
 
-			var dir = new Dir(this.tempDir),
+			var dir = jsonDir(this.tempDir),
 				fnames = dir.read();
 
 			fnames.done(function(files) {
@@ -54,7 +52,7 @@ describe('jsondir.Dir', function () {
 	describe('dir.readFiles(fname {String})', function () {
 
 		it('returns a promise for a qJsonFile object', function () {
-			var dir = new Dir(this.tempDir),
+			var dir = jsonDir(this.tempDir),
 				fnames = dir.readSync();
 
 			var file = dir.readFiles(fnames[0]);
@@ -63,7 +61,7 @@ describe('jsondir.Dir', function () {
 		});
 
 		it('... that is resolved with a qJsonFile object', function (done) {
-			var dir = new Dir(this.tempDir);
+			var dir = jsonDir(this.tempDir);
 
 			dir.readFiles('data1.json')
 				.then(function (data1) {
@@ -81,7 +79,7 @@ describe('jsondir.Dir', function () {
 
 	describe('dir.readFiles(fnames {Array})', function () {
 		it('returns a promise that is resolved with an array of file objects', function (done) {
-			var dir = new Dir(this.tempDir),
+			var dir = jsonDir(this.tempDir),
 				fileIds = ['data1', 'data2'],
 				fileNames = _.map(fileIds, function (fid) { return fid + '.json'; });
 
@@ -104,7 +102,7 @@ describe('jsondir.Dir', function () {
 
 	describe('dir.readFiles()', function () {
 		it('returns a promise for all the files within the directory', function (done) {
-			var dir = new Dir(this.tempDir);
+			var dir = jsonDir(this.tempDir);
 
 			dir.readFiles()
 				.done(function (files) {
@@ -121,7 +119,7 @@ describe('jsondir.Dir', function () {
 
 	describe('dir.writeFiles(data)', function () {
 		it('returns a promise for a hash of file objects', function (done) {
-			var dir = new Dir(this.tempDir);
+			var dir = jsonDir(this.tempDir);
 
 			var write = dir.writeFiles({
 				file1: {
@@ -158,7 +156,7 @@ describe('jsondir.Dir', function () {
 
 	describe('dir.writeFiles(fname, fdata)', function () {
 		it('returns a promise for the file object after they\'ve been successfully written', function (done) {
-			var dir = new Dir(this.tempDir);
+			var dir = jsonDir(this.tempDir);
 
 			var write = dir.writeFiles('writing-test', {
 				name: 'writing-test'
@@ -190,7 +188,7 @@ describe('jsondir.Dir', function () {
 		});
 
 		it('effectivelly unlinks', function (done) {
-			var dir = new Dir(this.tempDir);
+			var dir = jsonDir(this.tempDir);
 
 			dir.unlinkFiles(['unlink1', 'unlink2.json'])
 				.done(function () {

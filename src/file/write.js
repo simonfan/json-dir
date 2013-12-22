@@ -9,10 +9,10 @@ var path = require('path');
 var _ = require('lodash'),
 	Q = require('q');
 
-var helpers = require('./helpers');
+var helpers = require('../helpers');
 
 /**
- * 
+ *
  * @method writeFiles
  */
 exports.writeFiles = function writeFiles(first, second) {

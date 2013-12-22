@@ -8,10 +8,10 @@ var Q = require('q');
 var jsonDir = require('../src/index');
 
 beforeEach(function () {
-	this.dir = new jsonDir.Dir(path.join(__dirname, 'temp'));
+	this.dir = jsonDir(path.join(__dirname, 'temp'));
 });
 
-describe('it = json.Dir.iterator()', function () {
+describe('it = dir.iterator()', function () {
 
 	it('should return a promise for an iterator object', function (done) {
 		var getIterator = this.dir.iterator();
